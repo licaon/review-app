@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Home from 'pages/Home/Home';
+import Review from 'pages/Review/Review';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Router><Home /></Router>, div);
+  const match = {
+      params: {
+          firmId: 1
+      }
+  }
+  ReactDOM.render(<Review match={match} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
