@@ -6,8 +6,11 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   const match = {
       params: {
-          firmId: 1
-      }
+          firmId: "test"
+      },
+      isExact: true,
+      path: "",
+      url: ""
   }
   ReactDOM.render(<Review match={match} />, div);
   ReactDOM.unmountComponentAtNode(div);

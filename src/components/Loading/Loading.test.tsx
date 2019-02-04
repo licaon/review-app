@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from 'components/Layout/Layout';
+import Loading from 'components/Loading/Loading';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Layout><span>Child</span></Layout>, div);
+  ReactDOM.render(<Loading />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
