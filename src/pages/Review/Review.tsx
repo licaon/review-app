@@ -3,20 +3,39 @@ import axios from 'axios';
 import { get } from 'lodash';
 
 import { IMatch } from 'interfaces/RouteInterface';
+import { IReview } from 'interfaces/ReviewInterface'
 import { GET_FIRM_DATA } from 'constants/api';
 import Loading from 'components/Loading/Loading';
+import ReviewHeader from 'components/ReviewHeader/ReviewHeader';
+import MyReview from 'components/MyReview/MyReview';
+import ReviewComponent from 'components/Review/Review';
 
 import { result } from 'mockedData/company';
+import { reviews } from 'mockedData/reviews';
 
 interface IProps {
     match: IMatch
-};
+}
 
 const Review = (props: IProps) => {
-    const [firmName, setFirmName] = useState(undefined);
     const { match: { params: { firmId } } } = props;
-    let counter = 0;
 
+    const [firmName, setFirmName]:[string, any] = useState('');
+    const [availableReviews, setAvailableReviews ]:[IReview[], any] = useState([]);
+
+    const showReviews = () => availableReviews.map(({
+        reviewerPhoto, reviewerName, reviewStars, reviewTime, reviewContent
+    }, index) => (
+        <ReviewComponent
+            key={index}
+            reviewerPhoto={reviewerPhoto}
+            reviewerName={reviewerName}
+            reviewStars={reviewStars}
+            reviewTime={reviewTime}
+            reviewContent={reviewContent}
+        />
+    ));
+    
     useEffect(() => {
         axios(
           `http://${GET_FIRM_DATA}${firmId}`,
@@ -26,6 +45,7 @@ const Review = (props: IProps) => {
         })
         .catch(() => {
             setFirmName(get(result, 'result.companies.company.[0].displayName'));
+            setAvailableReviews(reviews);
         });
       },
       [firmId]
@@ -33,9 +53,16 @@ const Review = (props: IProps) => {
 
     return (
         <Loading loading={!firmName}>
-            {firmName}
+            <div>
+                <h1>{firmName}</h1>
+                <h2>Reviews</h2>
+                <ReviewHeader averageReview={4.1} noOfReviews={27} />
+                <MyReview />
+                <h3>Latest reviews</h3>
+                {showReviews()}
+            </div>
         </Loading>
     );
-}
+};
 
 export default Review;
