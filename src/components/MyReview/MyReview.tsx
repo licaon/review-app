@@ -1,12 +1,14 @@
 import React from 'react';
-import moment from "moment";
+import { withRouter, RouteComponentProps  } from 'react-router-dom';
+import moment from 'moment';
 
-interface IProps {
+interface IProps extends RouteComponentProps {
     reviewerPhoto?: string;
     reviewerName?: string;
-    reviewStars?: number;
+    reviewScore?: number;
     reviewTime?: number;
     reviewContent?: string;
+    firmId: string;
 }
 
 const MyReview = (props: IProps) => {
@@ -14,7 +16,7 @@ const MyReview = (props: IProps) => {
         <div>
             <h3>Rate and review</h3>
             <span>Share your experience to help others</span>
-            <div>stars</div>
+            <div onClick={() => { props.history.push(`/myreview/${props.firmId}?score=3`) }}>stars</div>
         </div>
     );
 
@@ -23,7 +25,7 @@ const MyReview = (props: IProps) => {
             <div>{props.reviewerName}</div>
             <div>
                 <div>
-                    {props.reviewStars}
+                    {props.reviewScore}
                 </div>
                 <div>
                     {moment(props.reviewTime).fromNow()} - hitta.se
@@ -37,9 +39,9 @@ const MyReview = (props: IProps) => {
     return (
         <div>
             <div>{props.reviewerPhoto}</div>
-            {props.reviewStars ? review() : noReview()}
+            {props.reviewScore ? review() : noReview()}
         </div>
     );
 };
 
-export default MyReview;
+export default withRouter(MyReview);

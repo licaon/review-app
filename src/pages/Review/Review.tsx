@@ -24,13 +24,13 @@ const Review = (props: IProps) => {
     const [availableReviews, setAvailableReviews ]:[IReview[], any] = useState([]);
 
     const showReviews = () => availableReviews.map(({
-        reviewerPhoto, reviewerName, reviewStars, reviewTime, reviewContent
+        reviewerPhoto, reviewerName, reviewScore, reviewTime, reviewContent
     }, index) => (
         <ReviewComponent
             key={index}
             reviewerPhoto={reviewerPhoto}
             reviewerName={reviewerName}
-            reviewStars={reviewStars}
+            reviewScore={reviewScore}
             reviewTime={reviewTime}
             reviewContent={reviewContent}
         />
@@ -57,7 +57,7 @@ const Review = (props: IProps) => {
                 <h1>{firmName}</h1>
                 <h2>Reviews</h2>
                 <ReviewHeader averageReview={4.1} noOfReviews={27} />
-                <MyReview />
+                <MyReview firmId={firmId}/>
                 <h3>Latest reviews</h3>
                 {showReviews()}
             </div>

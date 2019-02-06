@@ -1,7 +1,7 @@
 export interface IReview {
     reviewerPhoto?: string;
     reviewerName?: string;
-    reviewStars: number;
+    reviewScore: number;
     reviewTime: number;
     reviewContent: string;
 }

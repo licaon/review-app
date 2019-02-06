@@ -13,7 +13,7 @@ const Review = (props: IProps) => (
             <div>{props.reviewerName}</div>
             <div>
                 <div>
-                    {props.reviewStars}
+                    {props.reviewScore}
                 </div>
                 <div>
                     {moment(props.reviewTime).fromNow()} - hitta.se
