@@ -12,6 +12,7 @@ import ReviewComponent from 'components/Review/Review';
 
 import { result } from 'mockedData/company';
 import { reviews } from 'mockedData/reviews';
+import {getMyReview} from "mockedData/myReview";
 
 interface IProps {
     match: IMatch
@@ -22,9 +23,10 @@ const Review = (props: IProps) => {
 
     const [firmName, setFirmName]:[string, any] = useState('');
     const [availableReviews, setAvailableReviews ]:[IReview[], any] = useState([]);
+    const [myReview, setMyReview] = useState(getMyReview());
 
     const showReviews = () => availableReviews.map(({
-        reviewerPhoto, reviewerName, reviewScore, reviewTime, reviewContent
+        reviewerPhoto, reviewerName, reviewScore, reviewTime, reviewComment
     }, index) => (
         <ReviewComponent
             key={index}
@@ -32,7 +34,7 @@ const Review = (props: IProps) => {
             reviewerName={reviewerName}
             reviewScore={reviewScore}
             reviewTime={reviewTime}
-            reviewContent={reviewContent}
+            reviewComment={reviewComment}
         />
     ));
     
@@ -46,6 +48,7 @@ const Review = (props: IProps) => {
         .catch(() => {
             setFirmName(get(result, 'result.companies.company.[0].displayName'));
             setAvailableReviews(reviews);
+            setMyReview(getMyReview());
         });
       },
       [firmId]
@@ -57,7 +60,7 @@ const Review = (props: IProps) => {
                 <h1>{firmName}</h1>
                 <h2>Reviews</h2>
                 <ReviewHeader averageReview={4.1} noOfReviews={27} />
-                <MyReview firmId={firmId} firmName={firmName}/>
+                <MyReview firmId={firmId} firmName={firmName} {...myReview} />
                 <h3>Latest reviews</h3>
                 {showReviews()}
             </div>

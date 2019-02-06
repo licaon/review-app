@@ -3,5 +3,5 @@ export interface IReview {
     reviewerName?: string;
     reviewScore: number;
     reviewTime: number;
-    reviewContent: string;
+    reviewComment: string;
 }

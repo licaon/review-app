@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps  } from 'react-router-dom';
-import { IMatch } from 'interfaces/RouteInterface';
 import queryString from 'query-string';
 import StarRatingComponent from 'react-star-rating-component';
+
+import { IMatch } from 'interfaces/RouteInterface';
+import { setMyReview, getMyReview } from 'mockedData/myReview';
+
 
 interface IProps extends RouteComponentProps {
     match: IMatch
@@ -20,9 +23,10 @@ interface IScoreText {
 const MyReview = (props: IProps) => {
     const { match: { params: { firmId } } } = props;
     const query: IQueryParams = queryString.parse(props.location.search);
+    const myReview = getMyReview();
 
-    const [name, setName]:[string, any] = useState('');
-    const [comment, setComment]:[string, any] = useState('');
+    const [name, setName]:[string, any] = useState(myReview.reviewName);
+    const [comment, setComment]:[string, any] = useState(myReview.reviewComment);
     const [score, setScore]:[number, any] = useState(Number(query.score));
 
     const scoreText: IScoreText = {
@@ -34,11 +38,13 @@ const MyReview = (props: IProps) => {
     };
 
     const saveReview = () => {
-      console.log(JSON.stringify({
-          score: score,
-          name: name,
-          comment: comment,
-      }))
+        setMyReview({
+            reviewScore: score,
+            reviewName: name,
+            reviewComment: comment,
+        });
+        alert('Thank you for your review');
+        props.history.push(`/review/${firmId}`)
     };
 
     return (

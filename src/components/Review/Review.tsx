@@ -26,7 +26,7 @@ const Review = (props: IProps) => (
                 </div>
             </div>
             <div>
-                {props.reviewContent}
+                {props.reviewComment}
             </div>
         </div>
     </div>

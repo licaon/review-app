@@ -8,7 +8,7 @@ interface IProps extends RouteComponentProps {
     reviewerName?: string;
     reviewScore?: number;
     reviewTime?: number;
-    reviewContent?: string;
+    reviewComment?: string;
     firmId: string;
     firmName: string;
 }
@@ -16,6 +16,10 @@ interface IProps extends RouteComponentProps {
 const MyReview = (props: IProps) => {
     const onStarClick = (value:number) => {
         props.history.push(`/myreview/${props.firmId}?score=${value}&firmName=${props.firmName}`)
+    };
+
+    const onCommentClick = () => {
+        props.history.push(`/myreview/${props.firmId}?score=${props.reviewScore}&firmName=${props.firmName}`)
     };
     const noReview = () => (
         <div>
@@ -34,14 +38,18 @@ const MyReview = (props: IProps) => {
             <div>{props.reviewerName}</div>
             <div>
                 <div>
-                    {props.reviewScore}
+                    <StarRatingComponent
+                        name="MySavedReview"
+                        value={props.reviewScore || 0}
+                        editing={false}
+                    />
                 </div>
                 <div>
                     {moment(props.reviewTime).fromNow()} - hitta.se
                 </div>
             </div>
             <div>
-                {props.reviewContent ? props.reviewContent : <span>Describe your experience</span>}
+                {props.reviewComment ? props.reviewComment : <span onClick={onCommentClick}>Describe your experience</span>}
             </div>
         </div>
     );

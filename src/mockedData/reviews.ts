@@ -4,20 +4,20 @@ export const reviews = [
         reviewerName: undefined,
         reviewScore: 4,
         reviewTime: 1549359793537,
-        reviewContent: 'Liked it very much - probably one of the best thai restaurants in the city - recommended!',
+        reviewComment: 'Liked it very much - probably one of the best thai restaurants in the city - recommended!',
     },
     {
         reviewerPhoto: undefined,
         reviewerName: 'Jenny Svensson',
         reviewScore: 3,
         reviewTime: 1549353793537,
-        reviewContent: 'Maybe a bit too fast food. I personally dislike that. Good otherwise.',
+        reviewComment: 'Maybe a bit too fast food. I personally dislike that. Good otherwise.',
     },
     {
         reviewerPhoto: 'photo',
         reviewerName: 'happy56',
         reviewScore: 5,
         reviewTime: 1549242793537,
-        reviewContent: 'Super good! Love the food!',
+        reviewComment: 'Super good! Love the food!',
     },
 ];
