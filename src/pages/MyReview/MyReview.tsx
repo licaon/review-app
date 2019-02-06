@@ -4,7 +4,8 @@ import queryString from 'query-string';
 import StarRatingComponent from 'react-star-rating-component';
 
 import { IMatch } from 'interfaces/RouteInterface';
-import { setMyReview, getMyReview } from 'mockedData/myReview';
+import { getMyReview } from 'mockedData/myReview';
+import { saveMyReview } from 'api/apiCalls';
 
 
 interface IProps extends RouteComponentProps {
@@ -25,7 +26,7 @@ const MyReview = (props: IProps) => {
     const query: IQueryParams = queryString.parse(props.location.search);
     const myReview = getMyReview();
 
-    const [name, setName]:[string, any] = useState(myReview.reviewName);
+    const [name, setName]:[string, any] = useState(String(query.reviewerName || ''));
     const [comment, setComment]:[string, any] = useState(myReview.reviewComment);
     const [score, setScore]:[number, any] = useState(Number(query.score));
 
@@ -38,13 +39,18 @@ const MyReview = (props: IProps) => {
     };
 
     const saveReview = () => {
-        setMyReview({
-            reviewScore: score,
-            reviewName: name,
-            reviewComment: comment,
+        saveMyReview({
+            firmId,
+            myReview: {
+                reviewerName: String(name),
+                reviewScore: score,
+                reviewComment: comment,
+            }
+        })
+        .then(() => {
+            alert('Thank you for your review');
+            props.history.push(`/review/${firmId}`)
         });
-        alert('Thank you for your review');
-        props.history.push(`/review/${firmId}`)
     };
 
     return (

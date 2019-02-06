@@ -3,12 +3,14 @@ import { withRouter, RouteComponentProps  } from 'react-router-dom';
 import moment from 'moment';
 import StarRatingComponent from 'react-star-rating-component';
 
-interface IProps extends RouteComponentProps {
+export interface IMyReview {
     reviewerPhoto?: string;
     reviewerName?: string;
     reviewScore?: number;
     reviewTime?: number;
     reviewComment?: string;
+}
+interface IProps extends RouteComponentProps, IMyReview {
     firmId: string;
     firmName: string;
 }
@@ -19,7 +21,10 @@ const MyReview = (props: IProps) => {
     };
 
     const onCommentClick = () => {
-        props.history.push(`/myreview/${props.firmId}?score=${props.reviewScore}&firmName=${props.firmName}`)
+        props.history.push(`/myreview/${props.firmId
+        }?score=${props.reviewScore
+        }&firmName=${props.firmName
+        }${props.reviewerName ? `&reviewerName=${props.reviewerName}` : ''}`)
     };
     const noReview = () => (
         <div>

@@ -4,7 +4,7 @@ import { get } from 'lodash';
 
 import { IMatch } from 'interfaces/RouteInterface';
 import { IReview } from 'interfaces/ReviewInterface'
-import { GET_FIRM_DATA } from 'constants/api';
+import { getFirmReviews } from 'api/apiCalls';
 import Loading from 'components/Loading/Loading';
 import ReviewHeader from 'components/ReviewHeader/ReviewHeader';
 import MyReview from 'components/MyReview/MyReview';
@@ -18,14 +18,18 @@ interface IProps {
     match: IMatch
 }
 
+interface IState {
+    displayName?: string;
+    myReview?: IReview;
+    reviews: IReview[];
+}
+
 const Review = (props: IProps) => {
     const { match: { params: { firmId } } } = props;
 
-    const [firmName, setFirmName]:[string, any] = useState('');
-    const [availableReviews, setAvailableReviews ]:[IReview[], any] = useState([]);
-    const [myReview, setMyReview] = useState(getMyReview());
+    const [reviewsData, setReviewsData]:[IState, any] = useState({ reviews: [] });
 
-    const showReviews = () => availableReviews.map(({
+    const showReviews = () => reviewsData.reviews.map(({
         reviewerPhoto, reviewerName, reviewScore, reviewTime, reviewComment
     }, index) => (
         <ReviewComponent
@@ -39,28 +43,26 @@ const Review = (props: IProps) => {
     ));
     
     useEffect(() => {
-        axios(
-          `http://${GET_FIRM_DATA}${firmId}`,
-        )
+        getFirmReviews(firmId)
         .then((data)=> {
-            get(data, 'result.companies.company.[0].displayName');
+            setReviewsData(data);
         })
         .catch(() => {
-            setFirmName(get(result, 'result.companies.company.[0].displayName'));
-            setAvailableReviews(reviews);
-            setMyReview(getMyReview());
+            // this should never happen
         });
       },
       [firmId]
     );
 
+    const { displayName, myReview } = reviewsData;
+
     return (
-        <Loading loading={!firmName}>
+        <Loading loading={!displayName}>
             <div>
-                <h1>{firmName}</h1>
+                <h1>{displayName}</h1>
                 <h2>Reviews</h2>
                 <ReviewHeader averageReview={4.1} noOfReviews={27} />
-                <MyReview firmId={firmId} firmName={firmName} {...myReview} />
+                <MyReview firmId={firmId} firmName={displayName || ''} {...myReview} />
                 <h3>Latest reviews</h3>
                 {showReviews()}
             </div>
