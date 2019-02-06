@@ -57,7 +57,7 @@ const Review = (props: IProps) => {
                 <h1>{firmName}</h1>
                 <h2>Reviews</h2>
                 <ReviewHeader averageReview={4.1} noOfReviews={27} />
-                <MyReview firmId={firmId}/>
+                <MyReview firmId={firmId} firmName={firmName}/>
                 <h3>Latest reviews</h3>
                 {showReviews()}
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, RouteComponentProps  } from 'react-router-dom';
 import moment from 'moment';
+import StarRatingComponent from 'react-star-rating-component';
 
 interface IProps extends RouteComponentProps {
     reviewerPhoto?: string;
@@ -9,14 +10,22 @@ interface IProps extends RouteComponentProps {
     reviewTime?: number;
     reviewContent?: string;
     firmId: string;
+    firmName: string;
 }
 
 const MyReview = (props: IProps) => {
+    const onStarClick = (value:number) => {
+        props.history.push(`/myreview/${props.firmId}?score=${value}&firmName=${props.firmName}`)
+    };
     const noReview = () => (
         <div>
             <h3>Rate and review</h3>
             <span>Share your experience to help others</span>
-            <div onClick={() => { props.history.push(`/myreview/${props.firmId}?score=3`) }}>stars</div>
+            <StarRatingComponent
+                name="MyReview"
+                value={0}
+                onStarClick={onStarClick}
+            />
         </div>
     );
 
