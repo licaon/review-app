@@ -9,6 +9,7 @@ import {
     findIconDefinition
   } from '@fortawesome/fontawesome-svg-core'
 import styled from 'styled-components';
+import { CubeGrid } from 'styled-spinkit';
 
 import { IMatch } from 'interfaces/RouteInterface';
 import { getMyReview } from 'mockedData/myReview';
@@ -19,6 +20,25 @@ import LineSeparator from 'styled/LineSeparator';
 
 const MyReviewPage = styled.div`
     text-align: center;
+`;
+
+interface ILoaderOverlay {
+    show: boolean;
+}
+
+const LoaderOverlay = styled.div`
+    display: ${ (p:ILoaderOverlay) => p.show ? 'block' : 'none'};
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF80;
+    z-index: 100;
+`;
+
+const LoaderWrapper = styled.div`
+    position: absolute;
+    top: calc(50% - 60px);
+    left: calc(50% - 20px);
 `;
 
 const HeaderWrapper = styled.div`
@@ -123,6 +143,7 @@ const MyReview = (props: IProps) => {
     const [name, setName]:[string, any] = useState(String(query.reviewerName || ''));
     const [comment, setComment]:[string, any] = useState(myReview.reviewComment);
     const [score, setScore]:[number, any] = useState(Number(query.score));
+    const [showLoader, setShowLoader]:[boolean, any] = useState(false);
 
     const onStarClick = (value: number) => { setScore(value); };
 
@@ -135,6 +156,7 @@ const MyReview = (props: IProps) => {
     };
 
     const saveReview = () => {
+        setShowLoader(true);
         saveMyReview({
             firmId,
             myReview: {
@@ -143,8 +165,8 @@ const MyReview = (props: IProps) => {
                 reviewComment: comment,
             }
         })
-        .then(() => {
-            alert('Thank you for your review');
+        .then((response) => {
+            setShowLoader(false);
             props.history.push(`/review/${firmId}`)
         });
     };
@@ -156,6 +178,9 @@ const MyReview = (props: IProps) => {
 
     return (
         <MyReviewPage>
+            <LoaderOverlay show={showLoader}>
+                <LoaderWrapper><CubeGrid /></LoaderWrapper>
+            </LoaderOverlay>
             <HeaderWrapper>
                 <Button onClick={() => { props.history.goBack(); }}>Close</Button>
                 <FirmName>{query.firmName}</FirmName>

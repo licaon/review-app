@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 const LoaderWrapper = styled.div`
     position: absolute;
-    position: absolute;
     top: calc(50% - 60px);
     left: calc(50% - 20px);
 `;
