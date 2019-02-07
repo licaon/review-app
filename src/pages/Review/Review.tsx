@@ -22,7 +22,7 @@ const FirmName = styled.h2`
 const ViewAllReviews = styled.h5`
     text-align: center;
     color: ${DODGER_BLUE};
-`
+`;
 
 interface IProps {
     match: IMatch
@@ -42,16 +42,16 @@ const Review = (props: IProps) => {
     const showReviews = () => reviewsData.reviews.map(({
         reviewerPhoto, reviewerName, reviewScore, reviewTime, reviewComment
     }, index) => (
-        <div>
+        <div key={`wrapper_${index}`}>
             <ReviewComponent
-                key={index}
+                key={`review_${index}`}
                 reviewerPhoto={reviewerPhoto}
                 reviewerName={reviewerName}
                 reviewScore={reviewScore}
                 reviewTime={reviewTime}
                 reviewComment={reviewComment}
             />
-            { index < reviewsData.reviews.length - 1 && <LineSeparator />}
+            { index < reviewsData.reviews.length - 1 && <LineSeparator key={`lineseparator_${index}`} />}
         </div>
     ));
     

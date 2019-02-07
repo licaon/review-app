@@ -124,6 +124,8 @@ const MyReview = (props: IProps) => {
     const [comment, setComment]:[string, any] = useState(myReview.reviewComment);
     const [score, setScore]:[number, any] = useState(Number(query.score));
 
+    const onStarClick = (value: number) => { setScore(value); };
+
     const scoreText: IScoreText = {
         5: 'I loved it',
         4: 'I liked it',
@@ -164,7 +166,7 @@ const MyReview = (props: IProps) => {
                     <StarRatingComponent
                         name="MyReview"
                         value={score}
-                        onStarClick={setScore}
+                        onStarClick={onStarClick}
                         renderStarIcon={(index, value) => index <= value ?
                             (
                                 <BigStarFull>
