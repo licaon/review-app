@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
+import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from 'components/Layout/Layout';
 import Home from 'pages/Home/Home';
@@ -10,7 +11,7 @@ import Review from 'pages/Review/Review';
 import MyReview from 'pages/MyReview/MyReview';
 import Error404 from 'pages/Error404/Error404';
 
-library.add(faUserCircle, farStar);
+library.add(faUserCircle, farStar, fasStar);
 
 const App = () => (
   <Router>

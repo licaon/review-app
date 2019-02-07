@@ -7,7 +7,7 @@ const LineSeparator = styled.hr`
     height: 1px;
     border: 0;
     border-top: 1px solid ${PINK_SWAN}57;
-    margin: 1em 0;
+    margin: 0.5rem 0;
     padding: 0; 
 `;
 

@@ -37,7 +37,8 @@ const StarsWrapper = styled.div`
     & .dv-star-rating-empty-star {
         color: ${PINK_SWAN} !important;
     }
-`
+`;
+
 const TimeWrapper = styled.div`
     display: inline-block;
     margin-left: 0.5rem;
