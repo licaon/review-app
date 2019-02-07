@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import { DODGER_BLUE } from 'constants/colors';
+import LineSeparator from 'styled/LineSeparator';
 import { IMatch } from 'interfaces/RouteInterface';
 import { IReview } from 'interfaces/ReviewInterface'
 import { getFirmReviews } from 'api/apiCalls';
@@ -41,14 +42,17 @@ const Review = (props: IProps) => {
     const showReviews = () => reviewsData.reviews.map(({
         reviewerPhoto, reviewerName, reviewScore, reviewTime, reviewComment
     }, index) => (
-        <ReviewComponent
-            key={index}
-            reviewerPhoto={reviewerPhoto}
-            reviewerName={reviewerName}
-            reviewScore={reviewScore}
-            reviewTime={reviewTime}
-            reviewComment={reviewComment}
-        />
+        <div>
+            <ReviewComponent
+                key={index}
+                reviewerPhoto={reviewerPhoto}
+                reviewerName={reviewerName}
+                reviewScore={reviewScore}
+                reviewTime={reviewTime}
+                reviewComment={reviewComment}
+            />
+            { index < reviewsData.reviews.length - 1 && <LineSeparator />}
+        </div>
     ));
     
     useEffect(() => {
@@ -71,7 +75,9 @@ const Review = (props: IProps) => {
                 <FirmName>{displayName}</FirmName>
                 <h3>Reviews</h3>
                 <ReviewHeader averageReview={4.1} noOfReviews={27} />
+                <LineSeparator />
                 <MyReview firmId={firmId} firmName={displayName || ''} {...myReview} />
+                <LineSeparator />
                 <h4>Latest reviews</h4>
                 {showReviews()}
                 <ViewAllReviews color="red">View all reviews</ViewAllReviews>
