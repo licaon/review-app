@@ -10,7 +10,9 @@ it('renders without crashing', () => {
       },
       isExact: true,
       path: "",
-      url: ""
+      url: "",
+      history: "",
+      locations: "",
   };
   ReactDOM.render(<Review match={match} />, div);
   ReactDOM.unmountComponentAtNode(div);
