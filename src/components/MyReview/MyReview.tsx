@@ -12,6 +12,7 @@ import styled from 'styled-components';
 
 import { PINK_SWAN, DODGER_BLUE } from 'constants/colors';
 import SmallText from 'styled/SmallText';
+import Profile from 'assets/images/image1.jpg';
 
 const ReviewWraper = styled.div`
     width: 100%;
@@ -21,10 +22,20 @@ const UserImage = styled.div`
     display: inline-block;
     font-size: 35px;
     color: ${PINK_SWAN};
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 1em;
+    height: 1em;
     vertical-align: top;
-`
+    margin-right: 0.6rem;
+    & svg {
+        position: absolute;
+    }
+`;
+
+const ProfilePhoto = styled.img`
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+`;
 
 const UserReviewWrapper = styled.div`
     display: inline-block;
@@ -101,23 +112,23 @@ const MyReview = (props: IProps) => {
         const starLookup: IconLookup = { prefix: 'far', iconName: 'star' };
         const starIconDefinition: IconDefinition = findIconDefinition(starLookup);
         return (
-            <UserReviewWrapper>
-                <RateReview>Rate and review</RateReview>
-                <div>
-                    <SmallText>Share your experience to help others</SmallText>
-                </div>
-                <StarRatingComponent
-                    name="MyReview"
-                    value={0}
-                    onStarClick={onStarClick}
-                    renderStarIcon={() => (
-                        <BigStar>
-                            <FontAwesomeIcon icon={starIconDefinition} />
-                        </BigStar>
-                    )}
-                />
-            </UserReviewWrapper>
-        )
+        <UserReviewWrapper>
+            <RateReview>Rate and review</RateReview>
+            <div>
+                <SmallText>Share your experience to help others</SmallText>
+            </div>
+            <StarRatingComponent
+                name="MyReview"
+                value={0}
+                onStarClick={onStarClick}
+                renderStarIcon={() => (
+                    <BigStar>
+                        <FontAwesomeIcon icon={starIconDefinition} />
+                    </BigStar>
+                )}
+            />
+        </UserReviewWrapper>
+    )
     };
 
     const review = () => (
@@ -143,7 +154,12 @@ const MyReview = (props: IProps) => {
     );
     return (
         <ReviewWraper>
-            <UserImage><FontAwesomeIcon icon="user-circle" /></UserImage>
+            <UserImage > 
+                { props.reviewerPhoto ?
+                <ProfilePhoto src={Profile} /> :
+                <FontAwesomeIcon icon="user-circle" />
+                }
+            </UserImage>
             {props.reviewScore ? review() : noReview()}
         </ReviewWraper>
     );

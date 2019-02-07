@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { IReview } from 'interfaces/ReviewInterface';
 import { PINK_SWAN } from 'constants/colors';
 import SmallText from 'styled/SmallText';
+import Profile from 'assets/images/image1.jpg';
 
 const ReviewWraper = styled.div`
     width: 100%;
@@ -16,9 +17,19 @@ const UserImage = styled.div`
     display: inline-block;
     font-size: 35px;
     color: ${PINK_SWAN};
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 1em;
+    height: 1em;
     vertical-align: top;
+    margin-right: 0.6rem;
+    & svg {
+        position: absolute;
+    }
+`
+
+const ProfilePhoto = styled.img`
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
 `
 
 const UserReviewWrapper = styled.div`
@@ -56,7 +67,12 @@ interface IProps extends IReview {
 
 const Review = (props: IProps) => (
     <ReviewWraper>
-        <UserImage><FontAwesomeIcon icon="user-circle" /></UserImage>
+        <UserImage > 
+            { props.reviewerPhoto ?
+            <ProfilePhoto src={Profile} /> :
+            <FontAwesomeIcon icon="user-circle" />
+        }
+        </UserImage>
         <UserReviewWrapper>
             <div>
                 <UserName>{props.reviewerName || 'Anonym'}</UserName>
