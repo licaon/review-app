@@ -17,6 +17,7 @@ import { DODGER_BLUE, PINK_SWAN, TANGERINE_YELLOW } from 'constants/colors';
 import SmallText from 'styled/SmallText';
 import LineSeparator from 'styled/LineSeparator';
 import Loading from 'components/Loading/Loading';
+import Modal from 'components/Modal/Modal';
 
 const MyReviewPage = styled.div`
     text-align: center;
@@ -125,6 +126,7 @@ const MyReview = (props: IProps) => {
     const [comment, setComment]:[string, any] = useState(myReview.reviewComment);
     const [score, setScore]:[number, any] = useState(Number(query.score));
     const [showLoader, setShowLoader]:[boolean, any] = useState(false);
+    const [showModal, setShowModal]:[boolean, any] = useState(false);
 
     const onStarClick = (value: number) => { setScore(value); };
 
@@ -148,9 +150,13 @@ const MyReview = (props: IProps) => {
         })
         .then((response) => {
             setShowLoader(false);
-            props.history.push(`/review/${firmId}`)
+            setShowModal(true);
         });
     };
+
+    const onModalAction = () => {
+        props.history.push(`/review/${firmId}`);
+    }
 
     const farStarLookup: IconLookup = { prefix: 'far', iconName: 'star' };
     const farStarIconDefinition: IconDefinition = findIconDefinition(farStarLookup);
@@ -160,6 +166,12 @@ const MyReview = (props: IProps) => {
     return (
         <MyReviewPage>
             <Loading loading={showLoader} />
+            <Modal
+                show={showModal}
+                title="Thank you for your review"
+                content="You're helping others make smarter decisions every day."
+                onButtonClick={onModalAction}
+            />
             <HeaderWrapper>
                 <Button onClick={() => { props.history.goBack(); }}>Close</Button>
                 <FirmName>{query.firmName}</FirmName>
