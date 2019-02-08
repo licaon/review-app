@@ -31,6 +31,7 @@ const Title = styled.h3`
 `;
 
 const Content = styled.div`
+  padding: 0 1rem;
 `;
 
 const Button = styled.button`
