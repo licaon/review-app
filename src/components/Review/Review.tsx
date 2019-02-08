@@ -3,22 +3,18 @@ import moment from 'moment';
 import StarRatingComponent from 'react-star-rating-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { IReview } from 'interfaces/ReviewInterface';
+import { ReviewInterface } from 'interfaces/ReviewInterface';
 import SmallText from 'styled/SmallText';
 import Profile from 'assets/images/image1.jpg';
 import * as ReviewStyled from 'styled/Review';
 
-interface IProps extends IReview {
-}
-
-
-const Review = (props: IProps) => (
+const Review = (props: ReviewInterface): React.ReactElement<ReviewInterface> => (
     <ReviewStyled.ReviewWraper>
         <ReviewStyled.UserImage > 
             { props.reviewerPhoto ?
-            <ReviewStyled.ProfilePhoto src={Profile} /> :
-            <FontAwesomeIcon icon="user-circle" />
-        }
+                <ReviewStyled.ProfilePhoto src={Profile} /> :
+                <FontAwesomeIcon icon="user-circle" />
+            }
         </ReviewStyled.UserImage>
         <ReviewStyled.UserReviewWrapper>
             <div>

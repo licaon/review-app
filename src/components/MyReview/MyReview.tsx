@@ -7,7 +7,7 @@ import {
     IconLookup,
     IconDefinition,
     findIconDefinition
-  } from '@fortawesome/fontawesome-svg-core'
+} from '@fortawesome/fontawesome-svg-core'
 import styled from 'styled-components';
 
 import { PINK_SWAN, DODGER_BLUE } from 'constants/colors';
@@ -35,53 +35,53 @@ const NoComment = styled.div`
     color: ${DODGER_BLUE};
 `;
 
-export interface IMyReview {
+export interface MyReview {
     reviewerPhoto?: string;
     reviewerName?: string;
     reviewScore?: number;
     reviewTime?: number;
     reviewComment?: string;
 }
-interface IProps extends RouteComponentProps, IMyReview {
+interface Props extends RouteComponentProps, MyReview {
     firmId: string;
     firmName: string;
 }
 
-const MyReview = (props: IProps) => {
-    const onStarClick = (value:number) => {
+const MyReview = (props: Props): React.ReactElement<Props> => {
+    const onStarClick = (value: number): void => {
         props.history.push(`/myreview/${props.firmId}?score=${value}&firmName=${props.firmName}`)
     };
 
-    const onCommentClick = () => {
+    const onCommentClick = (): void => {
         props.history.push(`/myreview/${props.firmId
         }?score=${props.reviewScore
         }&firmName=${props.firmName
         }${props.reviewerName ? `&reviewerName=${props.reviewerName}` : ''}`)
     };
-    const noReview = () => {
+    const noReview = (): React.ReactNode => {
         const starLookup: IconLookup = { prefix: 'far', iconName: 'star' };
         const starIconDefinition: IconDefinition = findIconDefinition(starLookup);
         return (
-        <ReviewStyled.UserReviewWrapper>
-            <RateReview>Rate and review</RateReview>
-            <div>
-                <SmallText>Share your experience to help others</SmallText>
-            </div>
-            <StarRatingComponent
-                name="MyReview"
-                value={0}
-                onStarClick={onStarClick}
-                renderStarIcon={() => (
-                    <BigStar>
-                        <FontAwesomeIcon icon={starIconDefinition} />
-                    </BigStar>
-                )}
-            />
-        </ReviewStyled.UserReviewWrapper>
-    )
+            <ReviewStyled.UserReviewWrapper>
+                <RateReview>Rate and review</RateReview>
+                <div>
+                    <SmallText>Share your experience to help others</SmallText>
+                </div>
+                <StarRatingComponent
+                    name="MyReview"
+                    value={0}
+                    onStarClick={onStarClick}
+                    renderStarIcon={() => (
+                        <BigStar>
+                            <FontAwesomeIcon icon={starIconDefinition} />
+                        </BigStar>
+                    )}
+                />
+            </ReviewStyled.UserReviewWrapper>
+        )
     };
 
-    const review = () => (
+    const review = (): React.ReactNode => (
         <ReviewStyled.UserReviewWrapper>
             <ReviewStyled.UserName>
                 {props.reviewerName || 'Anonym'}
@@ -94,14 +94,14 @@ const MyReview = (props: IProps) => {
                 />
             </ReviewStyled.StarsWrapper>
             <ReviewStyled.TimeWrapper>
-                    <SmallText>
-                        {moment(props.reviewTime).fromNow()} - hitta.se
-                    </SmallText>
+                <SmallText>
+                    {moment(props.reviewTime).fromNow()} - hitta.se
+                </SmallText>
             </ReviewStyled.TimeWrapper>
             <div>
                 {props.reviewComment ?
-                <ReviewStyled.Comment>{props.reviewComment}</ReviewStyled.Comment>:
-                <NoComment onClick={onCommentClick}>Describe your experience</NoComment>
+                    <ReviewStyled.Comment>{props.reviewComment}</ReviewStyled.Comment>:
+                    <NoComment onClick={onCommentClick}>Describe your experience</NoComment>
                 }
             </div>
         </ReviewStyled.UserReviewWrapper>
@@ -110,8 +110,8 @@ const MyReview = (props: IProps) => {
         <ReviewStyled.ReviewWraper>
             <ReviewStyled.UserImage > 
                 { props.reviewerPhoto ?
-                <ReviewStyled.ProfilePhoto src={Profile} /> :
-                <FontAwesomeIcon icon="user-circle" />
+                    <ReviewStyled.ProfilePhoto src={Profile} /> :
+                    <FontAwesomeIcon icon="user-circle" />
                 }
             </ReviewStyled.UserImage>
             {props.reviewScore ? review() : noReview()}

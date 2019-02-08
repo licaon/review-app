@@ -7,23 +7,23 @@ import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from 'components/Layout/Layout';
 import Home from 'pages/Home/Home';
-import Review from 'pages/Review/Review';
+import Reviews from 'pages/Reviews/Reviews';
 import MyReview from 'pages/MyReview/MyReview';
 import Error404 from 'pages/Error404/Error404';
 
 library.add(faUserCircle, farStar, fasStar);
 
-const App = () => (
-  <Router>
-    <Layout>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/review/:firmId" component={Review} />
-        <Route path="/myreview/:firmId" component={MyReview} />
-        <Route component={Error404} />
-      </Switch>
-    </Layout>
-  </Router>
+const App = (): React.ReactElement<{}> => (
+    <Router>
+        <Layout>
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/review/:firmId" component={Reviews} />
+                <Route path="/myreview/:firmId" component={MyReview} />
+                <Route component={Error404} />
+            </Switch>
+        </Layout>
+    </Router>
 );
 
 export default App;

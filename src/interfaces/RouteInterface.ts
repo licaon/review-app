@@ -1,10 +1,10 @@
-export interface IMatch {
-    params: IMatchParams;
+export interface Match {
+    params: MatchParams;
     isExact: boolean;
     path: string;
     url: string;
-  }
+}
 
-export interface IMatchParams {
+export interface MatchParams {
     firmId: string;
 }

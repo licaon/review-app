@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => (
+const Header = (): React.ReactNode => (
     <div>Header</div>
 );
 

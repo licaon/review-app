@@ -1,23 +1,23 @@
 import { reviews } from 'mockedData/reviews';
-import { IMyReview } from 'components/MyReview/MyReview';
+import { MyReview } from 'components/MyReview/MyReview';
 
-const timeout = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+const timeout = (ms: number): Promise<void> => new Promise(resolve => setTimeout(resolve, ms));
 
-const generateRandomNumber = (min_value: number , max_value:number) => {
-    let random_number = Math.random() * (max_value - min_value) + min_value;
-    return Math.floor(random_number);
+const generateRandomNumber = (minValue: number , maxValue: number): number => {
+    let randomNumber = Math.random() * (maxValue - minValue) + minValue;
+    return Math.floor(randomNumber);
 };
 
 let availableReview = (() => reviews)();
 
-export const getFirmReviews = async (firmId:string) => {
+export const getFirmReviews = async (firmId: string): Promise<any> => {
     const waitFor = generateRandomNumber(500,2000);
     console.log(`Getting reviews for: ${firmId}, it will take ${waitFor}ms`);
     await timeout(waitFor);
     return availableReview;
 };
 
-export const saveMyReview = async ({ firmId, myReview }: { firmId: string, myReview: IMyReview }) => {
+export const saveMyReview = async ({ firmId, myReview }: { firmId: string; myReview: MyReview }): Promise<{ success: boolean }> => {
     const waitFor = generateRandomNumber(500,2000);
     console.log(`Save my review for: ${firmId}, it will take: ${waitFor}ms`);
     await timeout(waitFor);

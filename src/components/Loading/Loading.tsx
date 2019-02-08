@@ -16,21 +16,21 @@ const LoaderWrapper = styled.div`
     left: calc(50% - 20px);
 `;
 
-interface IProps {
+interface Props {
     loading: boolean;
     children?: ReactNode;
 }
 
-const Loading = (props: IProps) => {
+const Loading = (props: Props): React.ReactElement<Props> => {
     const { loading, children } = props;
     return (
         <div>
             {loading ?
-            <LoaderOverlay>
-                <LoaderWrapper>
-                    <CubeGrid />
-                </LoaderWrapper>
-            </LoaderOverlay> : children }
+                <LoaderOverlay>
+                    <LoaderWrapper>
+                        <CubeGrid />
+                    </LoaderWrapper>
+                </LoaderOverlay> : children }
         </div>
     );
 }

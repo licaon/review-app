@@ -1,4 +1,4 @@
-export interface IReview {
+export interface ReviewInterface {
     reviewerPhoto?: string;
     reviewerName?: string;
     reviewScore: number;

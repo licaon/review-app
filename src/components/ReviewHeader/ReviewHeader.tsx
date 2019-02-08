@@ -36,12 +36,12 @@ const ViewAllReviews = styled.div`
     color: ${DODGER_BLUE};
 `;
 
-interface IProps {
+interface Props {
     averageReview: number;
     noOfReviews: number;
 }
 
-const ReviewHeader = (props: IProps) => (
+const ReviewHeader = (props: Props): React.ReactElement<Props> => (
     <ReviewHeaderWrapper>
         <AverageScore>{props.averageReview}</AverageScore>
         <RatingsCounter>

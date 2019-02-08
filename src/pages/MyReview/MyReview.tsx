@@ -7,10 +7,10 @@ import {
     IconLookup,
     IconDefinition,
     findIconDefinition
-  } from '@fortawesome/fontawesome-svg-core'
+} from '@fortawesome/fontawesome-svg-core'
 import styled from 'styled-components';
 
-import { IMatch } from 'interfaces/RouteInterface';
+import { Match } from 'interfaces/RouteInterface';
 import { getMyReview } from 'mockedData/myReview';
 import { saveMyReview } from 'api/apiCalls';
 import { DODGER_BLUE, PINK_SWAN, TANGERINE_YELLOW } from 'constants/colors';
@@ -104,33 +104,33 @@ const CommentTextarea = styled.textarea`
     padding: 0;
 `;
 
-interface IProps extends RouteComponentProps {
-    match: IMatch
+interface Props extends RouteComponentProps {
+    match: Match;
 }
 
-interface IQueryParams {
+interface QueryParams {
     [key: string]: string | string[] | undefined;
 }
 
-interface IScoreText {
+interface ScoreText {
     [key: number]: string;
 
 }
 
-const MyReview = (props: IProps) => {
+const MyReview = (props: Props): React.ReactElement<Props> => {
     const { match: { params: { firmId } } } = props;
-    const query: IQueryParams = queryString.parse(props.location.search);
+    const query: QueryParams = queryString.parse(props.location.search);
     const myReview = getMyReview();
 
-    const [name, setName]:[string, any] = useState(String(query.reviewerName || ''));
-    const [comment, setComment]:[string, any] = useState(myReview.reviewComment);
-    const [score, setScore]:[number, any] = useState(Number(query.score));
-    const [showLoader, setShowLoader]:[boolean, any] = useState(false);
-    const [showModal, setShowModal]:[boolean, any] = useState(false);
+    const [name, setName]: [string, any] = useState(String(query.reviewerName || ''));
+    const [comment, setComment]: [string, any] = useState(myReview.reviewComment);
+    const [score, setScore]: [number, any] = useState(Number(query.score));
+    const [showLoader, setShowLoader]: [boolean, any] = useState(false);
+    const [showModal, setShowModal]: [boolean, any] = useState(false);
 
-    const onStarClick = (value: number) => { setScore(value); };
+    const onStarClick = (value: number): void => { setScore(value); };
 
-    const scoreText: IScoreText = {
+    const scoreText: ScoreText = {
         5: 'I loved it',
         4: 'I liked it',
         3: 'It was OK',
@@ -138,7 +138,7 @@ const MyReview = (props: IProps) => {
         1: 'I hated it',
     };
 
-    const saveReview = () => {
+    const saveReview = (): void => {
         setShowLoader(true);
         saveMyReview({
             firmId,
@@ -148,13 +148,13 @@ const MyReview = (props: IProps) => {
                 reviewComment: comment,
             }
         })
-        .then((response) => {
-            setShowLoader(false);
-            setShowModal(true);
-        });
+            .then(() => {
+                setShowLoader(false);
+                setShowModal(true);
+            });
     };
 
-    const onModalAction = () => {
+    const onModalAction = (): void => {
         props.history.push(`/review/${firmId}`);
     }
 

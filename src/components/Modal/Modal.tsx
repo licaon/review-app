@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { DODGER_BLUE, PINK_SWAN, WHITE_SMOKE } from 'constants/colors';
 import LineSeparator from 'styled/LineSeparator';
 
-interface IModalOverlay {
+interface ModalOverlay {
     show: boolean;
 }
 
 const ModalOverlay = styled.div`
-    display: ${ (p: IModalOverlay) => p.show ? 'block' : 'none'};
+    display: ${ (p: ModalOverlay) => p.show ? 'block' : 'none'};
     background-color: ${PINK_SWAN}80;
     position: absolute;
     width: 100%;
@@ -20,7 +20,7 @@ const ModalOverlay = styled.div`
 const ModalWrapper = styled.div`
     position: absolute;
     width: 20rem;
-    height: 10rem;
+    min-height: 10rem;
     background-color: ${WHITE_SMOKE};
     top: calc(50% - 5rem);
     left: calc(50% - 10rem);
@@ -41,17 +41,18 @@ const Button = styled.button`
     font-weight: bold;
     padding: 0;
     width: 100%;
-    height: 2.3rem;
+    height: 3rem;
+    border-radius: 0 0 1rem 1rem;
 `;
 
-interface IProps {
+interface Props {
     show: boolean;
     title: string;
     content: string;
     onButtonClick(): void;
 }
 
-const Modal = (props: IProps) => {
+const Modal = (props: Props): React.ReactElement<Props> => {
     return (
         <ModalOverlay show={props.show}>
             <ModalWrapper>

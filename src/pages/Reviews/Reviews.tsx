@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import { DODGER_BLUE } from 'constants/colors';
 import LineSeparator from 'styled/LineSeparator';
-import { IMatch } from 'interfaces/RouteInterface';
-import { IReview } from 'interfaces/ReviewInterface'
+import { Match } from 'interfaces/RouteInterface';
+import { ReviewInterface } from 'interfaces/ReviewInterface'
 import { getFirmReviews } from 'api/apiCalls';
 import Loading from 'components/Loading/Loading';
 import ReviewHeader from 'components/ReviewHeader/ReviewHeader';
@@ -24,24 +24,24 @@ const ViewAllReviews = styled.h5`
     color: ${DODGER_BLUE};
 `;
 
-interface IProps {
-    match: IMatch
+interface Props {
+    match: Match;
 }
 
-interface IState {
+interface State {
     displayName?: string;
-    myReview?: IReview;
-    reviews: IReview[];
+    myReview?: ReviewInterface;
+    reviews: ReviewInterface[];
 }
 
-const Review = (props: IProps) => {
+const Reviews = (props: Props): React.ReactElement<Props> => {
     const { match: { params: { firmId } } } = props;
 
-    const [reviewsData, setReviewsData]:[IState, any] = useState({ reviews: [] });
+    const [reviewsData, setReviewsData]: [State, any] = useState({ reviews: [] });
 
-    const showReviews = () => reviewsData.reviews.map(({
+    const showReviews = (): React.ReactNode[] => reviewsData.reviews.map(({
         reviewerPhoto, reviewerName, reviewScore, reviewTime, reviewComment
-    }, index) => (
+    }, index): React.ReactElement<any> => (
         <div key={`wrapper_${index}`}>
             <ReviewComponent
                 key={`review_${index}`}
@@ -57,14 +57,14 @@ const Review = (props: IProps) => {
     
     useEffect(() => {
         getFirmReviews(firmId)
-        .then((data)=> {
-            setReviewsData(data);
-        })
-        .catch(() => {
+            .then((data)=> {
+                setReviewsData(data);
+            })
+            .catch(() => {
             // this should never happen
-        });
-      },
-      [firmId]
+            });
+    },
+    [firmId]
     );
 
     const { displayName, myReview } = reviewsData;
@@ -86,4 +86,4 @@ const Review = (props: IProps) => {
     );
 };
 
-export default Review;
+export default Reviews;
