@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-
-import logo from 'assets/images/logo.svg';
-import 'pages/Home/Home.css';
-
 
 const Home = () => {
     return (

@@ -13,34 +13,7 @@ import styled from 'styled-components';
 import { PINK_SWAN, DODGER_BLUE } from 'constants/colors';
 import SmallText from 'styled/SmallText';
 import Profile from 'assets/images/image1.jpg';
-
-const ReviewWraper = styled.div`
-    width: 100%;
-`;
-
-const UserImage = styled.div`
-    display: inline-block;
-    font-size: 35px;
-    color: ${PINK_SWAN};
-    width: 1em;
-    height: 1em;
-    vertical-align: top;
-    margin-right: 0.6rem;
-    & svg {
-        position: absolute;
-    }
-`;
-
-const ProfilePhoto = styled.img`
-    width: 100%;
-    height: 100%;
-    border-radius: 1rem;
-`;
-
-const UserReviewWrapper = styled.div`
-    display: inline-block;
-    width: calc(100% - 2.8rem);
-`;
+import * as ReviewStyled from 'styled/Review';
 
 const RateReview = styled.div`
     font-size: 16px;
@@ -54,29 +27,6 @@ const BigStar = styled.div`
     padding-right: 1rem;
     color: ${PINK_SWAN};
     margin-top: 0.7rem;
-`;
-
-const UserName = styled.div`
-    font-size: 14px;
-    font-weight: bold;
-`;
-
-const StarsWrapper = styled.div`
-    display: inline-block;
-    font-size: 11px;
-    & .dv-star-rating-empty-star {
-        color: ${PINK_SWAN} !important;
-    }
-`;
-
-const TimeWrapper = styled.div`
-    display: inline-block;
-    margin-left: 0.5rem;
-`;
-
-const Comment = styled.div`
-    font-size: 12px;
-    margin-top: 0.5rem;
 `;
 
 const NoComment = styled.div`
@@ -112,7 +62,7 @@ const MyReview = (props: IProps) => {
         const starLookup: IconLookup = { prefix: 'far', iconName: 'star' };
         const starIconDefinition: IconDefinition = findIconDefinition(starLookup);
         return (
-        <UserReviewWrapper>
+        <ReviewStyled.UserReviewWrapper>
             <RateReview>Rate and review</RateReview>
             <div>
                 <SmallText>Share your experience to help others</SmallText>
@@ -127,41 +77,45 @@ const MyReview = (props: IProps) => {
                     </BigStar>
                 )}
             />
-        </UserReviewWrapper>
+        </ReviewStyled.UserReviewWrapper>
     )
     };
 
     const review = () => (
-        <UserReviewWrapper>
-            <UserName>{props.reviewerName || 'Anonym'}</UserName>
-            <StarsWrapper>
+        <ReviewStyled.UserReviewWrapper>
+            <ReviewStyled.UserName>
+                {props.reviewerName || 'Anonym'}
+            </ReviewStyled.UserName>
+            <ReviewStyled.StarsWrapper>
                 <StarRatingComponent
                     name="MySavedReview"
                     value={props.reviewScore || 0}
                     editing={false}
                 />
-            </StarsWrapper>
-            <TimeWrapper>
-                    <SmallText>{moment(props.reviewTime).fromNow()} - hitta.se</SmallText>
-            </TimeWrapper>
+            </ReviewStyled.StarsWrapper>
+            <ReviewStyled.TimeWrapper>
+                    <SmallText>
+                        {moment(props.reviewTime).fromNow()} - hitta.se
+                    </SmallText>
+            </ReviewStyled.TimeWrapper>
             <div>
                 {props.reviewComment ?
-                <Comment>{props.reviewComment}</Comment>:
+                <ReviewStyled.Comment>{props.reviewComment}</ReviewStyled.Comment>:
                 <NoComment onClick={onCommentClick}>Describe your experience</NoComment>
                 }
             </div>
-        </UserReviewWrapper>
+        </ReviewStyled.UserReviewWrapper>
     );
     return (
-        <ReviewWraper>
-            <UserImage > 
+        <ReviewStyled.ReviewWraper>
+            <ReviewStyled.UserImage > 
                 { props.reviewerPhoto ?
-                <ProfilePhoto src={Profile} /> :
+                <ReviewStyled.ProfilePhoto src={Profile} /> :
                 <FontAwesomeIcon icon="user-circle" />
                 }
-            </UserImage>
+            </ReviewStyled.UserImage>
             {props.reviewScore ? review() : noReview()}
-        </ReviewWraper>
+        </ReviewStyled.ReviewWraper>
     );
 };
 

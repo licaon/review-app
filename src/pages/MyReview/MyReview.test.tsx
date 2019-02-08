@@ -11,9 +11,7 @@ it('renders without crashing', () => {
       isExact: true,
       path: "",
       url: "",
-      history: "",
-      locations: "",
   };
-  ReactDOM.render(<Review match={match} />, div);
+  ReactDOM.render(<Review match={match} location={{search: ""}}/>, div);
   ReactDOM.unmountComponentAtNode(div);
 });

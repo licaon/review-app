@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { RouteComponentProps  } from 'react-router-dom';
 import queryString from 'query-string';
 import StarRatingComponent from 'react-star-rating-component';
@@ -9,7 +9,6 @@ import {
     findIconDefinition
   } from '@fortawesome/fontawesome-svg-core'
 import styled from 'styled-components';
-import { CubeGrid } from 'styled-spinkit';
 
 import { IMatch } from 'interfaces/RouteInterface';
 import { getMyReview } from 'mockedData/myReview';
@@ -17,28 +16,10 @@ import { saveMyReview } from 'api/apiCalls';
 import { DODGER_BLUE, PINK_SWAN, TANGERINE_YELLOW } from 'constants/colors';
 import SmallText from 'styled/SmallText';
 import LineSeparator from 'styled/LineSeparator';
+import Loading from 'components/Loading/Loading';
 
 const MyReviewPage = styled.div`
     text-align: center;
-`;
-
-interface ILoaderOverlay {
-    show: boolean;
-}
-
-const LoaderOverlay = styled.div`
-    display: ${ (p:ILoaderOverlay) => p.show ? 'block' : 'none'};
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #FFFFFF80;
-    z-index: 100;
-`;
-
-const LoaderWrapper = styled.div`
-    position: absolute;
-    top: calc(50% - 60px);
-    left: calc(50% - 20px);
 `;
 
 const HeaderWrapper = styled.div`
@@ -178,9 +159,7 @@ const MyReview = (props: IProps) => {
 
     return (
         <MyReviewPage>
-            <LoaderOverlay show={showLoader}>
-                <LoaderWrapper><CubeGrid /></LoaderWrapper>
-            </LoaderOverlay>
+            <Loading loading={showLoader} />
             <HeaderWrapper>
                 <Button onClick={() => { props.history.goBack(); }}>Close</Button>
                 <FirmName>{query.firmName}</FirmName>
