@@ -21,24 +21,30 @@ export const getFirmReviews = async (firmId: string): Promise<any> => {
 };
 
 export const saveMyReview = async ({ firmId, myReview }: { firmId: string; myReview: MyReview }): Promise<{ success: boolean }> => {
-    const formData = new FormData();
-    formData.set('score', String(myReview.reviewScore));
-    formData.set('companyId', firmId);
-    formData.set('comment', myReview.reviewComment || '');
-    formData.set('userName', myReview.reviewerName || '');
+    // Save request is blocked by CORS on github.io
+    // const formData = new FormData();
+    // formData.set('score', String(myReview.reviewScore));
+    // formData.set('companyId', firmId);
+    // formData.set('comment', myReview.reviewComment || '');
+    // formData.set('userName', myReview.reviewerName || '');
+    //
+    // const response = await axios.post(POST_FIRM_DATA,
+    //     formData,
+    //     {
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    //         'X-HITTA-DEVICE-NAME': 'MOBILE_WEB',
+    //         'X-HITTA-SHARED-IDENTIFIER': 15188693697264027,
+    //
+    //     }
+    // });
+    // if (/'^2'/.test(String(response.status))) {
+    //     Object.assign(availableReview, { myReview });
+    // }
+    const waitFor = generateRandomNumber(500,2000);
+    console.log(`Save my review for: ${firmId}, it will take: ${waitFor}ms`);
+    await timeout(waitFor);
+    Object.assign(availableReview, { myReview });
 
-    const response = await axios.post(POST_FIRM_DATA,
-        formData,
-        {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            'X-HITTA-DEVICE-NAME': 'MOBILE_WEB',
-            'X-HITTA-SHARED-IDENTIFIER': 15188693697264027,
-
-        }
-    });
-    if (/'^2'/.test(String(response.status))) {
-        Object.assign(availableReview, { myReview });
-    }
     return { success: true }
 };
