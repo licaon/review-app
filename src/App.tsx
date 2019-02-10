@@ -14,7 +14,7 @@ import Error404 from 'pages/Error404/Error404';
 library.add(faUserCircle, farStar, fasStar);
 
 const App = (): React.ReactElement<{}> => (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
         <Layout>
             <Switch>
                 <Redirect exact from="/" to="/review/dummy_firm" />

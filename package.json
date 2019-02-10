@@ -2,6 +2,7 @@
   "name": "review-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://licaon.github.io/review-app",
   "dependencies": {
     "@babel/core": "7.1.6",
     "@fortawesome/fontawesome-svg-core": "^1.2.14",
